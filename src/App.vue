@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Header from '@/components/System/Header'
+import Footer from '@/components/System/Footer'
 
 export default {
   components: {
