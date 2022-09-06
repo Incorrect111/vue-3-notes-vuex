@@ -46,7 +46,7 @@ export default {
   methods: {
     //push note
     onSubmit() {
-      this.$emit('onSubmit', {
+      this.$store.dispatch('pushNote', {
         title: this.inputValue,
         tags: this.tagsSelected
       })

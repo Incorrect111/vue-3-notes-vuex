@@ -1,11 +1,9 @@
 <template>
   <div class="notes-list">
-    <div class="note-item" v-for="(note, index) in items" :key="index">
+    <div class="note-item" v-for="(note, index) in notes" :key="index">
       <div class="note-header">
         {{ note.title }}
-        <p style="cursor: pointer" @click="$emit('onRemove', index)">
-          &#x2715;
-        </p>
+        <p style="cursor: pointer" @click="handleRemove(index)">&#x2715;</p>
       </div>
 
       <div class="note-footer">
@@ -21,11 +19,45 @@
 
 <script>
 import TagsList from '@/components/UI/TagsList.vue'
+import { getNotesFromLs } from '/Volumes/HDD/Programming/tocode.ru/vue3/notesVuex/utils/localStorage.js'
+import { setLocalNotes } from '/Volumes/HDD/Programming/tocode.ru/vue3/notesVuex/utils/localStorage.js'
 export default {
   components: { TagsList },
   props: {
     items: {
       type: Array
+    }
+  },
+  data() {
+    return {
+      notes: []
+    }
+  },
+  mounted() {
+    // const localNotes = getNotesFromLs()
+    // if (localNotes) {
+    //   this.notes = localNotes
+    // } else
+    const localNotes = getNotesFromLs()
+    if(localNotes){
+    this.$store.dispatch('setNotesFromLocalStorage', localNotes)
+  }
+    this.notes = this.$store.getters.getNotes
+  },
+
+  watch: {
+    notes: {
+      handler(updatedList) {
+        console.log('notes from watch' + this.notes)
+        setLocalNotes(updatedList)
+      },
+      deep: true
+    }
+  },
+  methods: {
+    // * remove note
+    handleRemove(index) {
+      this.$store.dispatch('removeNote', index)
     }
   }
 }
