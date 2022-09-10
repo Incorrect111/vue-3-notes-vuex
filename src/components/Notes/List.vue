@@ -34,21 +34,16 @@ export default {
     }
   },
   mounted() {
-    // const localNotes = getNotesFromLs()
-    // if (localNotes) {
-    //   this.notes = localNotes
-    // } else
     const localNotes = getNotesFromLs()
-    if(localNotes){
-    this.$store.dispatch('setNotesFromLocalStorage', localNotes)
-  }
+    if (localNotes) {
+      this.$store.dispatch('setNotesFromLocalStorage', localNotes)
+    }
     this.notes = this.$store.getters.getNotes
   },
 
   watch: {
     notes: {
       handler(updatedList) {
-        console.log('notes from watch' + this.notes)
         setLocalNotes(updatedList)
       },
       deep: true
@@ -66,9 +61,12 @@ export default {
 <style lang="scss">
 .notes-list {
   padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .note-item {
-  width: 100%;
+  width: 50%;
   padding: 18px 20px;
   margin-bottom: 20px;
   border-radius: 14px;
@@ -91,5 +89,8 @@ export default {
   flex-direction: column;
   justify-content: start;
   align-items: start;
+}
+.hidden-input {
+  width: 50%;
 }
 </style>
