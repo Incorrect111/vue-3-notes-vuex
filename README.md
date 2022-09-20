@@ -1,5 +1,7 @@
 # Vue 3 cli template
 
+Demo: https://incorrect111.github.io/vue-3-notes-vuex/
+
 ## Project setup
 
 ```
